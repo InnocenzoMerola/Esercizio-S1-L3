@@ -19,61 +19,8 @@ $pdo = new PDO($dsn, $user, $pass, $options);
 $stmt = $pdo->query('SELECT * FROM users');
 
 
-// echo '<ul>';
-// foreach ($stmt as $row)
-// {
-//     echo "<li>$row[name]</li>
-//     <div class=container mt-5>
-//     <div class=row justify-content-center>
-//         <div class=col-10>
-//             <button>
-//                 <a href=./create.php>Iscriviti</a>
-//             </button>
-//     <table class=table>
-//             <thead>
-//                 <tr>
-//                 <th scope=col>#</th>
-//                 <th scope=col>Nome</th>
-//                 <th scope=col>Cognome</th>
-//                 <th scope=col>Età</th>
-//                 <th scope=col>Email</th>
 
-//                 <th scope=col>Professione</th>
-//                 </tr>
-//             </thead>
-//             <tbody>
-//                 <tr>
-                    
-        
-//                 <th scope=row>$row[id] </th>
-//                 <td>$row[name] </td>
-//                 <td>$row[surname] </td>
-//                 <td>$row[age] </td>
-//                 <td>$row[email] </td>
-               
-//                 <td>$row[profession] </td>
-//                 <td><button class=btn btn-info>
-//                 <a href=>Edit</a>
-//             </button></td>
-//             <td><button class=btn btn-danger>
-//                 <a href=>Elimina</a>
-//             </button></td>
 
-//                 </tr>
-//             </tbody>
-//             </table>
-//             </div>
-//             </div>
-//         </div>
-//     ";
-// }
-// echo '</ul>';
-
-// $id = 1;
-// $id = $_GET['id'];
-// $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
-// $stmt->execute([$id]);
-// $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -100,29 +47,36 @@ $stmt = $pdo->query('SELECT * FROM users');
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Cognome</th>
+                <th scope="col">Età</th>
                 <th scope="col">Email</th>
                 <th scope="col">Professione</th>
+                <th scope="col">Modifica</th>
+                <th scope="col">Elimina</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <?php foreach ($stmt as $row) {?>
+                <?php foreach ($stmt as $row) {?>
+                    <tr>
                         <th scope="row"><?= $row["id"] ?></th>
                         <td><?= $row["name"] ?></td>
                         <td><?= $row['surname'] ?></td>
                         <td><?= $row['age'] ?></td>
                         <td><?= $row['email'] ?></td>
                         <td><?= $row['profession'] ?></td>
+                        <td>
+                            <button class="btn btn-info">
+                                <a href="http://localhost/IFOA-BackEnd/Esercizio%20S1-L3/edit.php?id=<?= $row['id'] ?>">Edit</a>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger">    
+                                <a href="http://localhost/IFOA-BackEnd/Esercizio%20S1-L3/delete.php?id=<?= $row['id'] ?>">Elimina</a>
+                            </button>
+                        </td>
+                    </tr>
                         <?php
                     }?> 
-                    <td><button class="btn btn-info">
-                            <a href="">Edit</a>
-                        </button></td>
-                        <td><button class="btn btn-danger">
-                            <a href="">Elimina</a>
-                        </button></td>
-
-                </tr>
+                        
             </tbody>
             </table>
         </div>

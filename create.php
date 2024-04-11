@@ -37,8 +37,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $errors['email'] = 'Email non valida';
     }
 
-    if(strlen($name) < 5 || strlen($name) > 15){
-        $errors['username'] = "Il nome utente deve contenere dalle 5 alle 15 lettere";
+    if(strlen($name) < 2 || strlen($name) > 20){
+        $errors['name'] = "Il nome utente deve contenere dalle 5 alle 15 lettere";
     }
     
 
@@ -50,7 +50,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 
     if($errors === []){
-        $stmt = $pdo->prepare("INSERT INTO users (name, surname, age, email, profession) VALUES (:name; :surname, :age, :email, :profession)");
+        $stmt = $pdo->prepare("INSERT INTO users (name, surname, age, email, profession) VALUES (:name, :surname, :age, :email, :profession)");
         $stmt->execute([
             'name' => $name,
             'surname' => $surname,
@@ -58,8 +58,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             'email' => $email,
             'profession' => $profession,
         ]);
-            
+           
     };
+    print_r($errors);
 }
 
 
@@ -85,9 +86,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <form action="" method="post" novalidate>
     <div class="row row-gap-2">
   <div class="col-12">
-    <label for="username" class="form-label">Nome</label>
-    <input type="text" value="<?php echo $name;?>" name="username" class="form-control <?= isset($errors['username']) ? 'is-invalid' : ''?>" id="username" >
-    <?= $errors['username'] ?? "" ?>
+    <label for="name" class="form-label">Nome</label>
+    <input type="text" value="<?php echo $name;?>" name="name" class="form-control <?= isset($errors['name']) ? 'is-invalid' : ''?>" id="name" >
+    <?= $errors['name'] ?? "" ?>
   </div>
 
   <div class="col-12">
