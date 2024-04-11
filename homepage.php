@@ -34,12 +34,12 @@ $stmt = $pdo->query('SELECT * FROM users');
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body>
-<div class="container mt-5">
+<body style="background-color: #ddd594;">
+<div class="container" style="margin-block: 10rem">
     <div class="row justify-content-center">
         <div class="col-10">
-            <button>
-                <a href="./create.php">Iscriviti</a>
+            <button class="btn btn-primary mb-2">
+                <a class="text-white text-decoration-none" href="./create.php">Iscriviti</a>
             </button>
             <table class="table">
             <thead>
@@ -65,12 +65,12 @@ $stmt = $pdo->query('SELECT * FROM users');
                         <td><?= $row['profession'] ?></td>
                         <td>
                             <button class="btn btn-info">
-                                <a href="http://localhost/IFOA-BackEnd/Esercizio%20S1-L3/edit.php?id=<?= $row['id'] ?>">Edit</a>
+                                <a class="text-white text-decoration-none" href="http://localhost/IFOA-BackEnd/Esercizio%20S1-L3/edit.php?id=<?= $row['id'] ?>">Edit</a>
                             </button>
                         </td>
                         <td>
                             <button class="btn btn-danger">    
-                                <a href="http://localhost/IFOA-BackEnd/Esercizio%20S1-L3/delete.php?id=<?= $row['id'] ?>">Elimina</a>
+                                <a class="text-white text-decoration-none" href="http://localhost/IFOA-BackEnd/Esercizio%20S1-L3/delete.php?id=<?= $row['id'] ?>">Elimina</a>
                             </button>
                         </td>
                     </tr>
