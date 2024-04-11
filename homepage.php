@@ -19,12 +19,55 @@ $pdo = new PDO($dsn, $user, $pass, $options);
 $stmt = $pdo->query('SELECT * FROM users');
 
 
-echo '<ul>';
-foreach ($stmt as $row)
-{
-    echo "<li>$row[name]</li>";
-}
-echo '</ul>';
+// echo '<ul>';
+// foreach ($stmt as $row)
+// {
+//     echo "<li>$row[name]</li>
+//     <div class=container mt-5>
+//     <div class=row justify-content-center>
+//         <div class=col-10>
+//             <button>
+//                 <a href=./create.php>Iscriviti</a>
+//             </button>
+//     <table class=table>
+//             <thead>
+//                 <tr>
+//                 <th scope=col>#</th>
+//                 <th scope=col>Nome</th>
+//                 <th scope=col>Cognome</th>
+//                 <th scope=col>Età</th>
+//                 <th scope=col>Email</th>
+
+//                 <th scope=col>Professione</th>
+//                 </tr>
+//             </thead>
+//             <tbody>
+//                 <tr>
+                    
+        
+//                 <th scope=row>$row[id] </th>
+//                 <td>$row[name] </td>
+//                 <td>$row[surname] </td>
+//                 <td>$row[age] </td>
+//                 <td>$row[email] </td>
+               
+//                 <td>$row[profession] </td>
+//                 <td><button class=btn btn-info>
+//                 <a href=>Edit</a>
+//             </button></td>
+//             <td><button class=btn btn-danger>
+//                 <a href=>Elimina</a>
+//             </button></td>
+
+//                 </tr>
+//             </tbody>
+//             </table>
+//             </div>
+//             </div>
+//         </div>
+//     ";
+// }
+// echo '</ul>';
 
 // $id = 1;
 // $id = $_GET['id'];
@@ -64,15 +107,20 @@ echo '</ul>';
             <tbody>
                 <tr>
                     <?php foreach ($stmt as $row) {?>
-        
-                <th scope="row"><?= $row['id'] ?></th>
-                <td><?= $row['name'] ?></td>
-                <td><?= $row['surname'] ?></td>
-                <td><?= $row['age'] ?></td>
-                <td><?= $row['email'] ?></td>
-                <td><?= $row['password'] ?></td>
-                <td><?= $row['profession'] ?></td><?php
-            }?> 
+                        <th scope="row"><?= $row["id"] ?></th>
+                        <td><?= $row["name"] ?></td>
+                        <td><?= $row['surname'] ?></td>
+                        <td><?= $row['age'] ?></td>
+                        <td><?= $row['email'] ?></td>
+                        <td><?= $row['profession'] ?></td>
+                        <?php
+                    }?> 
+                    <td><button class="btn btn-info">
+                            <a href="">Edit</a>
+                        </button></td>
+                        <td><button class="btn btn-danger">
+                            <a href="">Elimina</a>
+                        </button></td>
 
                 </tr>
             </tbody>

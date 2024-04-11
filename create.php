@@ -16,16 +16,15 @@ $options = [
 
 $pdo = new PDO($dsn, $user, $pass, $options);
 
-$stmt = $pdo->query('SELECT * FROM users');
+// $stmt = $pdo->query('SELECT * FROM users');
 
 
 echo '<pre>' . print_r($_POST, true) . '</pre>';
 
-$name = $_POST['username'] ?? "";
+$name = $_POST['name'] ?? "";
 $surname = $_POST['surname'] ?? "";
 $email = $_POST['email'] ?? "";
 $age = $_POST['age'] ?? "";
-$password = $_POST['password'] ?? "";
 $profession = $_POST['profession'] ?? "";
 
 
@@ -42,10 +41,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $errors['username'] = "Il nome utente deve contenere dalle 5 alle 15 lettere";
     }
     
-    
-    if(strlen($password) < 10 || strlen($password) > 17){
-        $errors['password'] = "La password deve contenere dalle 10 alle 17 lettere";
-    }
+
 
     if($age === ""){
         $errors['age'] = "Aggiungere l'età";
@@ -54,20 +50,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 
     if($errors === []){
-        header('Location: /IFOA-BackEnd/Esercizio%20S1-L2/success.php');
-    }
+        $stmt = $pdo->prepare("INSERT INTO users (name, surname, age, email, profession) VALUES (:name; :surname, :age, :email, :profession)");
+        $stmt->execute([
+            'name' => $name,
+            'surname' => $surname,
+            'age' => $age,
+            'email' => $email,
+            'profession' => $profession,
+        ]);
+            
+    };
 }
 
 
-$stmt = $pdo->prepare("INSERT INTO users (name, surname, age, email, password, profession) VALUES (:name; :surname, :age, :email, :password, :profession)");
-$stmt->execute([
-    'name' => $name,
-    'surname' => $surname,
-    'age' => $age,
-    'email' => $email,
-    'password' => $password,
-    'profession' => $profession,
-])
 ?>
 
 
@@ -113,11 +108,6 @@ $stmt->execute([
       <?= $errors['email'] ?? ""?>
   </div>
   
-  <div class="col-12">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" name="password"  class="form-control <?= isset($errors['password']) ? 'is-invalid' : "" ?>" id="password" aria-describedby="validationServer03Feedback" >
-    <?= $errors['password'] ?? "" ?>
-  </div>
   
   <div class="col-12">
     <label for="profession" class="form-label">Professione</label>
