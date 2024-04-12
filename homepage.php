@@ -1,13 +1,28 @@
 <?php 
-
 include __DIR__ . '/includes/db.php';
 
 $search = $_GET['search'] ?? '';
 
-$stmt = $pdo->prepare('SELECT * FROM users WHERE name LIKE ?');
+$page = $_GET['page'] ?? 1;
+$limit = $_GET['limit'] ?? 5;
+$limit = $limit > 10 ? 2 : $limit;
+$offset = ($page - 1) * $limit;
+
+$stmt = $pdo->prepare('SELECT * FROM users WHERE name LIKE :search LIMIT :limit OFFSET :offset');
 $stmt->execute([
-    "%$search%"
+   'search' => "%$search%",
+   'offset' => $offset,
+   'limit' => $limit,
 ]);
+$utenti = $stmt->fetchAll();
+
+$stmt = $pdo->prepare('SELECT COUNT(*) as num_users FROM users users WHERE name LIKE :search ');
+$stmt->execute([
+    'search' => "%$search%",
+]);
+$num_users = $stmt->fetch()['num_users'];
+$tot_pages = ceil($num_users / $limit);
+
 
 include __DIR__ . '/includes/initial.php'?>
 
@@ -28,7 +43,7 @@ include __DIR__ . '/includes/initial.php'?>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($stmt as $row) {?>
+                <?php foreach ($utenti as $row) {?>
                     <tr>
                         <th scope="row"><?= $row["id"] ?></th>
                         <td><?= $row["name"] ?></td>
@@ -48,6 +63,23 @@ include __DIR__ . '/includes/initial.php'?>
                         
             </tbody>
             </table>
+        
+             <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item <?= $page == $i ? 'active' : ''?>">
+                    <a class="page-link" href="/IFOA-BackEnd/Esercizio%20S1-L3/homepage.php?page=<?= $page-1 ?><?=$search ? "&search=$search" : '' ?>">Previous</a>
+                </li>
+                   <?php
+                        for ($i=1; $i <= $tot_pages; $i++) {?> 
+                            <li class="page-item"><a class="page-link" href="/IFOA-BackEnd/Esercizio%20S1-L3/homepage.php?page=<?= $i ?><?=$search ? "&search=$search" : '' ?>"><?= $i ?></a></li><?php
+                        }
+                   ?>
+
+                    <li class="page-item <?= $page == $tot_pages ? 'active' : ''?>">
+                        <a class="page-link" href="/IFOA-BackEnd/Esercizio%20S1-L3/homepage.php?page=<?= $page+1 ?><?=$search ? "&search=$search" : '' ?>">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 <?php 
