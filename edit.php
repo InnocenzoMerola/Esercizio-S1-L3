@@ -10,15 +10,13 @@ $stmt->execute([$_GET['id']]);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-
-
-
 $name = $_POST['name'] ?? "";
 $surname = $_POST['surname'] ?? "";
 $email = $_POST['email'] ?? "";
 $age = $_POST['age'] ?? "";
 $profession = $_POST['profession'] ?? "";
 $id = $_GET['id'];
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $errors = [];

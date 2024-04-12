@@ -24,13 +24,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $errors['name'] = "Il nome utente deve contenere dalle 5 alle 15 lettere";
     }
     
-
-
     if($age === ""){
         $errors['age'] = "Aggiungere l'età";
     }
-
-
 
     if($errors === []){
         $stmt = $pdo->prepare("INSERT INTO users (name, surname, age, email, profession) VALUES (:name, :surname, :age, :email, :profession)");

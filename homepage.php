@@ -2,7 +2,6 @@
 
 include __DIR__ . '/includes/db.php';
 
-
 $search = $_GET['search'] ?? '';
 
 $stmt = $pdo->prepare('SELECT * FROM users WHERE name LIKE ?');
@@ -37,15 +36,11 @@ include __DIR__ . '/includes/initial.php'?>
                         <td><?= $row['age'] ?></td>
                         <td><?= $row['email'] ?></td>
                         <td><?= $row['profession'] ?></td>
-                        <td>
-                            <button class="btn btn-info">
-                                <a class="text-white text-decoration-none" href="http://localhost/IFOA-BackEnd/Esercizio%20S1-L3/edit.php?id=<?= $row['id'] ?>">Edit</a>
-                            </button>
+                        <td>                       
+                            <a class="btn btn-info" class="text-white text-decoration-none" href="/IFOA-BackEnd/Esercizio%20S1-L3/edit.php?id=<?= $row['id'] ?>">Edit</a>
                         </td>
                         <td>
-                            <button class="btn btn-danger">    
-                                <a class="text-white text-decoration-none" href="http://localhost/IFOA-BackEnd/Esercizio%20S1-L3/delete.php?id=<?= $row['id'] ?>">Elimina</a>
-                            </button>
+                            <a class="btn btn-danger" class="text-white text-decoration-none" href="/IFOA-BackEnd/Esercizio%20S1-L3/delete.php?id=<?= $row['id'] ?>">Elimina</a>  
                         </td>
                     </tr>
                         <?php
